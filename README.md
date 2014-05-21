@@ -25,6 +25,7 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="js/jQueryMobile/jquery.mobile-1.4.2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="js/jQueryMobile/jquery.mobile.theme-1.4.2.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/jQueryMobile/jquery.mobile-1.4.2.min.js"></script>
@@ -39,7 +40,7 @@
                 <p class="event received">Device is Ready</p>
             </div>
         </div>
-        <div data-role="page" id="pageLogin">
+<div data-role="page" id="pageLogin">
 
     <div data-role="header" data-theme="b">
         <h1>Autenticacion</h1>
@@ -48,82 +49,98 @@
     <div role="main" class="ui-content">
         <h4>Iniciar Sesion:</h4>
         <form>
-            <label type="text" id="lbl_msgLogin"></label>
+            <label type="text" id="lbl_msgLogin" class="alertHid"></label>
             <input type="text" placeholder="Username" id="txt_username">
             <input type="password" placeholder="Password" id="txt_password">
-            <input type="button" data-theme="a" value="Log In" id="btnLogin">  
+            <input type="button" data-theme="a" value="Log In" data-icon="home" id="btnLogin">  
         </form>
     </div><!-- /content -->
 </div><!-- /page -->
 <div data-role="page" id="pageMenuPrincipal" data-theme="a">
     <div data-role="header" data-theme="b">
          <label type="text" id="lbl_operador"></label>
-         <input type="button" id="btn_logOff" value="Log Off">  
+         <!--<input type="button" id="btn_logOff" value="Log Off">  -->
+        <a href="#pageLogin" data-theme="b" data-direction="reverse" data-icon="back">Log Out</a> 
         <h1>Menu Principal</h1>
     </div><!-- /header -->
     <div role="main" class="ui-content">
-         <input type="button" id="btn_opcionDist" data-theme="a" value="Distribucion">  
-         <input type="button" id="btn_opcionReco" data-theme="c" value="Recojos">  
+         <input type="button" id="btn_opcionDist" data-icon="grid" data-theme="a" value="Distribucion">  
+         <input type="button" id="btn_opcionReco" data-icon="grid" data-theme="c" value="Recojos">  
+
     </div><!-- /content -->
 </div><!-- /page -->
 <!-- Start of second page -->
 <div data-role="page" id="pageRecojosMain">
     <div data-role="header" data-theme="b">
-        <input type="button" id="btn_backToMenuMain" value="Atras">  
-
+        <!--<input type="button" id="btn_backToMenuMain" value="Atras">  -->
+        <a href="#pageMenuPrincipal" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
         <h1>Recojos Pendientes</h1>
     </div><!-- /header -->
     <div role="main" class="ui-content">
-        <ul data-role="listview" data-inset="true" id="recojosLista" class="ui-alt-icon"></ul>      
-        <span><h4>Recojos Pendientes: </h4></span>
-        <span><h3 id="total_pendientes"></h3></span>
-        <span><h4>Total Recojos: </h4></span>
-        <span ><h3 id="total_recojos"></h3></span>
-    </div>
-</div><!-- /page -->
-<div data-role="page" id="pageRecojosDetalle">
-    <div data-role="header" data-theme="b">
-        <input type="button"  id="btn_backToRecojosMain" value="Atras">  
-        <h1>Detalle Recojo:</h1>
-    </div><!-- /header -->
-    <div role="main" class="ui-content" id='contentRecDet'>
-        <span><h4>Nro Recojo:</h4></span>   
-        <span><h4 id="numrec_det">Nro Recojo:</h4></span> 
-        <span><h4>Cliente:</h4></span>
-        <span><h4 id="nomcli_det"></h4></span>
-        <span><h4>Ruc:</h4></span>  
-        <span><h4 id="ruc_det">Ruc:</h4></span>  
-        <span><h4>Contacto:</h4></span>
-        <span><h4 id="contacto_det">Contacto:</h4></span>
-        <span><h4>Direccion:</h4></span>    
-        <span><h4 id="dirrec_det">Direccion:</h4></span>    
-        <span><h4>Peso:</h4></span> 
-        <span><h4 id="pesorec_det">Peso:</h4></span> 
-        <span><h4>Glosa:</h4></span>    
-        <span><h4 id="glosa_det">Glosa:</h4></span>    
-        <span><h4>Estado Envio:</h4></span> 
-        <span><h4 id="estado_envio_det">Estado Envio:</h4></span> 
-        <span><h4>Estado Recojo:</h4></span>    
-        <span><h4 id="estado_recojo_det">Estado Recojo:</h4></span>    
-        <span><h4>Hora Recojo</h4></span>   
-        <span><h4 id="_horarec_det">Hora Recojo</h4></span>   
-        <span><h4>Hora Recojo Final:</h4></span>    
-        <span><h4 id="horafin_det">Hora Recojo Final:</h4></span>    
-         <fieldset class="ui-grid-a">
-                    <div class="ui-block-a"><input type="button" id="btn_confirmaRec" data-theme="b" value="Confirmar"></div>
-                    <div class="ui-block-b"><input type="button" id="btn_motivaRec" data-theme="b" value="Motivar"> </div>
-        </fieldset>
+        <ul data-role="listview" data-inset="true"  id="recojosLista" class="ui-alt-icon"></ul>  
+
+
+        <div class="ui-grid-a ui-bar ui-bar-e" data-theme="b">
+            <div class="ui-block-a">
+                <div><strong>Pendientes:</strong></div>
+                <div><strong id="total_pendientes"></strong></div>
+            </div>
+            <div class="ui-block-b">
+                <div><strong>Total:</strong></div>
+                <div><strong id="total_recojos"></strong></div>
+            </div>
+        </div>
     </div>
 </div>
-<div data-role="page" id="pageRecojosMain">
+<div data-role="page" id="pageRecojosDetalle">
     <div data-role="header" data-theme="b">
-        <input type="button" id="btn_backToMenuMain" value="Atras"> 
+        <!--<input type="button"  id="btn_backToRecojosMain" value="Atras"> -->
+        <a href="#pageRecojosMain" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
+        <h1>Detalle Recojo:</h1>
+    </div><!-- /header -->
+<div role="main" class="ui-content" id='contentRecDet'>
+    
+
+    <ul data-role="listview"  data-inset="true" id="recojosLista" class="ui-alt-icon">
+        <li data-role="list-divider"><h4>Cliente:</h4></li>
+        <li ><h4 id="nomcli_det"></h4></li>
+        <li data-role="list-divider"><h4>Ruc:</h4></li>
+        <li ><h4 id="ruc_det"></h4></li>
+        <li data-role="list-divider"><h4>Contacto:</h4></li>
+        <li ><h4 id="contacto_det"></h4></li>
+        <li data-role="list-divider"><h4>Direccion:</h4></li>
+        <li ><h4 id="dirrec_det"></h4></li>
+        <li data-role="list-divider"><h4>Peso:</h4></li>
+        <li ><h4 id="pesorec_det"></h4></li>
+        <li data-role="list-divider"><h4>Glosa:</h4></li>
+        <li ><h4 id="glosa_det"></h4></li>
+        <li data-role="list-divider"><h4>Estado Envio:</h4></li>
+        <li ><h4 id="estado_envio_det"></h4></li>
+        <li data-role="list-divider"><h4>Estado Recojo:</h4></li>
+        <li ><h4 id="estado_recojo_det"></h4></li>
+        <li data-role="list-divider"><h4>Hora Recojo:</h4></li>
+        <li ><h4 id="_horarec_det"></h4></li>
+        <li data-role="list-divider"><h4>Hora Recojo Final:</h4></li>
+        <li ><h4 id="horafin_det"></h4></li>
+    </ul>  
+     <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><input type="button" id="btn_confirmaRec" data-icon="check" data-theme="b" value="Confirmar"></div>
+                <div class="ui-block-b"><input type="button" id="btn_motivaRec" data-icon="delete" data-theme="b" value="Motivar"> </div>
+    </fieldset>
+</div>
+</div>
+<div data-role="page" id="pageMotivar">
+    <div data-role="header" data-theme="b">
+        <!--<input type="button" id="btn_backToRecojDet" value="Atras"> -->
+        <a href="#pageRecojosDetalle" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
         <h1>Motivar recojo</h1>
     </div>
     <div role="main" class="ui-content">
-        <ul data-role="listview" data-inset="true" id="recojosLista" class="ui-alt-icon"></ul>      
-        
+        <fieldset data-role="controlgroup" id='motivos_opcion'></fieldset>      
+        <div id="lbl_msgMotivar" class="alertHid"></div>            
+        <input type="button" data-theme="b" data-icon="check" value="Aceptar" id='btn_aceptaMotivar'/>  
     </div>
+
 </div>
 
 
@@ -131,12 +148,17 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            app.initialize();
+            app.initialize();   
         </script>
     </body>
 </html>
+
 ------------------------
- var obj_listado= new Array();
+
+
+
+ var obj_listado;
+ var obj_motivos;
 function linkrecojo(param){
 
   $.mobile.changePage( "#pageRecojosDetalle", { transition: "slide", changeHash: false });
@@ -146,18 +168,20 @@ function linkrecojo(param){
   $("#nomcli_det").html('');
   $("#ruc_det").html('');
   $("#contacto_det").html('');
-  $("#numrec_det").html('');
+  //$("#numrec_det").html('');
   $("#dir_cliente").html('');
   $("#peso_envio").html('');
   $("#glosa").html('');
   $("#estado_envio").html('');
   $("#hora_recojo").html('');
   $("#hora_recojo_fin").html('');
-
   jQuery.each(obj_listado, function( i, obj ) {
-    if(parseInt(obj.nro_recojo)==parseInt(param)){ /*cuando coincide el recojo seleccionado*/     
-      //alert(obj.nom_cli+'-'+obj.ruc_dni+'-'+obj.contacto+'-'+obj.nro_recojo+'-'+obj.dir_cliente+'-'+obj.nom_cli+'-'+obj.peso_envio+'-'+
-      //obj.glosa+'-'+obj.estado_envio+'-'+obj.hora_recojo+'-'+obj.hora_recojo_fin)
+   // alert(obj.nro_recojo + '-'+param );
+    if(parseInt(obj.nro_recojo)==parseInt(param)){ 
+
+      $("#pageRecojosDetalle div h1").html('');
+      $("#pageRecojosDetalle div h1").html('Recojo Nro: '+parseInt(obj.nro_recojo));
+      //$("#numrec_det").html(obj.nro_recojo);
       $("#nomcli_det").html(obj.nom_cli);
       $("#ruc_det").html(obj.ruc_dni);
       $("#contacto_det").html(obj.contacto);
@@ -172,6 +196,8 @@ function linkrecojo(param){
 }
 
 
+ 
+
 
 
 
@@ -179,11 +205,17 @@ $(document).ready(function(){
  
 	$( "#btnLogin" ).click(function() {
   	  $("#lbl_msgLogin").html('');
-	  var username=$("#txt_username").val();
+      $.mobile.loading( 'show', {
+      text: 'Validando',
+      textVisible: true,
+      theme: 'b',
+      html: ""
+    });
+    var username=$("#txt_username").val();
 	  var password=$("#txt_password").val();
 	  loginValidar(username, password);
 	});
-	$("#btn_opcionReco").click(function (){		
+	$("#btn_opcionReco").click(function (){	
         $.mobile.changePage( "#pageRecojosMain", { transition: "slide", changeHash: false });
 	})
 	$("#btn_logOff").click(function (){		
@@ -196,12 +228,21 @@ $(document).ready(function(){
 	})
 	$("#btn_backToRecojosMain").click(function (){	
         $.mobile.changePage( "#pageRecojosMain", { transition: "slidedown", changeHash: false });
+
 	})
 	$("#btn_confirmaRec").click(function (){		
-		alert('seguro??')
+	alert('cambia estado db')
+    $.mobile.changePage( "#pageRecojosMain", { transition: "slidedown", changeHash: false });
 	})
-	$("#btn_motivaRec").click(function (){   
-    alert('seguro??')
+	$("#btn_motivaRec").click(function (){    
+    $.mobile.changePage( "#pageMotivar", { transition: "slide", changeHash: false });    
+      $("#lbl_msgMotivar").html(''); 
+  })
+  $("#btn_backToRecojDet").click(function (){   
+    $.mobile.changePage( "#pageRecojosDetalle", { transition: "slidedown", changeHash: false });
+  })
+  $("#btn_aceptaMotivar").click(function (){   
+        motivarRecojo();
   })
 
 
@@ -213,6 +254,23 @@ $(document).ready(function(){
 
 
 
+    function motivarRecojo(){      
+      var flagMot=false;      
+      var msg="Seleccione un motivo";
+      $(".rbt_motivo").each(function(e){
+        if($(this).prop("checked")==true){
+          flagMot=true;
+        }
+      })
+
+      if(flagMot==false){
+        $("#lbl_msgMotivar").html(msg); 
+        return false
+        } 
+     
+    alert('motiva ');
+    $.mobile.changePage( "#pageRecojosMain", { transition: "slidedown", changeHash: false });
+   }
 
 
 	 function loginValidar(username, password){
@@ -231,11 +289,12 @@ $(document).ready(function(){
 	           funcion:'dLoginValidar'
 		    },
 		    success: function( result ) {
+          obj_listado=new Array();;
 		       var resultado=result[0].resultado;
                if(resultado==1){/*hacer un each y OBtener las filas de los recojos*/   
 
-  			   var recojosCant=result.length;           
-           $("#recojosLista").html('');
+  			   var recojosCant=result.length;    
+           $("#recojosLista").html('')
   				jQuery.each( result, function( i, obj ) {
            var ope_nombre=obj.ope_nombre ? obj.ope_nombre : null;
            var ope_apellido=  obj.ope_apellido ? obj.ope_apellido : null;
@@ -259,6 +318,7 @@ $(document).ready(function(){
            var hora_recojo_fin=obj.hora_recojo_fin ? obj.hora_recojo_fin : null; 
            var param=parseInt(nro_recojo);           
             
+          // alert(ope_codigo+'-'+nro_recojo);
             obj_listado[i]={'ope_nombre':ope_nombre, 
                             'ope_apellido':ope_apellido,
                             'ope_codigo':ope_codigo,
@@ -279,7 +339,7 @@ $(document).ready(function(){
                             'referencia':referencia,
                             'hora_recojo':hora_recojo,
                             'hora_recojo_fin':hora_recojo_fin}
-                            alert(dir_cliente);
+                           // alert(dir_cliente);
 
            $("#recojosLista").append('<li><a href="#" onclick="linkrecojo('+param+');">'+nro_recojo+' - '+nom_cli+'</a></li>');  
 				});
@@ -291,7 +351,7 @@ $(document).ready(function(){
                $("#txt_password").val('');
                $("#total_pendientes").html('');
                $("#total_recojos").html(recojosCant);
-               $.mobile.changePage( "#pageMenuPrincipal", { transition: "slide", changeHash: false }); // descomentar              
+               cargaMotivos();
                //$.mobile.changePage( "#pageRecojosMain", { transition: "slidefade", changeHash: false });                  
 
 
@@ -304,5 +364,54 @@ $(document).ready(function(){
 
 		});
 	 }
+
+   function cargaMotivos(){
+
+    $.ajax({
+        url : 'http://www.olva.com.pe/eeduardo/serviceMovil.php',
+        jsonp: "MotCallback",
+        dataType: "jsonp",
+        data: {
+           format: "json",
+             funcion:'dMotivosGet'
+        },
+        success: function( result ) {
+          obj_motivos='';
+          obj_motivos=new Array();
+           var resultado=result[0].resultado;
+               if(resultado==1){/*hacer un each y OBtener las filas de los motivos*/   
+          jQuery.each( result, function( i, obj ) {
+           var mot_codigo=obj.codigo ? obj.codigo : null;
+           var mot_descripcion= obj.descripcion ? obj.descripcion : null;
+
+           obj_motivos[i]={'mot_codigo':mot_codigo, 
+                            'mot_descripcion':mot_descripcion}  
+
+           //$("#motivarLista").append('<li><a href="#" onclick="motivarRecojo('+mot_codigo+');">'+mot_descripcion+'</a></li>');  
+            $("#motivos_opcion").append(
+              '<input  type="radio" name="radio-choice" class="rbt_motivo" id="radio-'+i+'" value="'+mot_codigo+'"/><label for="radio-'+i+'">'
+              +mot_descripcion+'</label>');
+        });
+    
+
+          /*guardar la informacion de motivos en la memoria del telefono*/ 
+          
+
+               $.mobile.changePage("#pageMenuPrincipal", { transition: "slide", changeHash: false }); // descomentar              
+              
+
+
+               }else{  /*no se obtiene nada*/         
+                   //$("#lbl_msgLogin").html('Por favor, ingrese las credenciales correctas');       
+               }
+        
+
+        }
+
+    });
+
+   }
+
+
 
 });
