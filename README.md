@@ -29,6 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/jQueryMobile/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" src="js/funcionesGlobales.js"></script>
         <script type="text/javascript" src="js/funcionesGenerales.js"></script>
         <title>Operador Olva App</title>
     </head>
@@ -60,7 +61,7 @@
     <div data-role="header" data-theme="b">
          <label type="text" id="lbl_operador"></label>
          <!--<input type="button" id="btn_logOff" value="Log Off">  -->
-        <a href="#pageLogin" data-theme="b" data-direction="reverse" data-icon="back">Log Out</a> 
+        <a href="#" data-theme="b" data-direction="reverse" id="btn_logOut" data-icon="back">Log Out</a> 
         <h1>Menu Principal</h1>
     </div><!-- /header -->
     <div role="main" class="ui-content">
@@ -82,12 +83,11 @@
 
         <div class="ui-grid-a ui-bar ui-bar-e" data-theme="b">
             <div class="ui-block-a">
-                <div><strong>Pendientes:</strong></div>
-                <div><strong id="total_pendientes"></strong></div>
+                <strong>Pendientes:</strong><strong id="total_pendientes"></strong>
             </div>
             <div class="ui-block-b">
-                <div><strong>Total:</strong></div>
-                <div><strong id="total_recojos"></strong></div>
+                <!--<div><strong>Total:</strong></div>
+                <div><strong id="total_recojos"></strong></div>-->
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
 <div role="main" class="ui-content" id='contentRecDet'>
     
 
-    <ul data-role="listview"  data-inset="true" id="recojosLista" class="ui-alt-icon">
+    <ul data-role="listview"  data-inset="true" id="detalleLista" class="ui-alt-icon">
         <li data-role="list-divider"><h4>Cliente:</h4></li>
         <li ><h4 id="nomcli_det"></h4></li>
         <li data-role="list-divider"><h4>Ruc:</h4></li>
@@ -113,9 +113,9 @@
         <li data-role="list-divider"><h4>Peso:</h4></li>
         <li ><h4 id="pesorec_det"></h4></li>
         <li data-role="list-divider"><h4>Glosa:</h4></li>
-        <li ><h4 id="glosa_det"></h4></li>
-        <li data-role="list-divider"><h4>Estado Envio:</h4></li>
-        <li ><h4 id="estado_envio_det"></h4></li>
+        <li ><div><h4 id="glosa_det"></h4></div></li>
+        <!--<li data-role="list-divider"><h4>Estado Envio:</h4></li>
+        <li ><h4 id="estado_envio_det"></h4></li>-->
         <li data-role="list-divider"><h4>Estado Recojo:</h4></li>
         <li ><h4 id="estado_recojo_det"></h4></li>
         <li data-role="list-divider"><h4>Hora Recojo:</h4></li>
@@ -124,8 +124,12 @@
         <li ><h4 id="horafin_det"></h4></li>
     </ul>  
      <fieldset class="ui-grid-a">
-                <div class="ui-block-a"><input type="button" id="btn_confirmaRec" data-icon="check" data-theme="b" value="Confirmar"></div>
-                <div class="ui-block-b"><input type="button" id="btn_motivaRec" data-icon="delete" data-theme="b" value="Motivar"> </div>
+                <div class="ui-block-a">
+                    <input type="button" id="btn_confirmaRec" data-icon="check" data-theme="b" value="Confirmar">
+                </div>
+                <div class="ui-block-b">
+                    <input type="button" id="btn_motivaRec" data-icon="delete" data-theme="b" value="Motivar"> 
+                </div>
     </fieldset>
 </div>
 </div>
@@ -143,6 +147,41 @@
 
 </div>
 
+<div data-role="page" id="pageIngresarOrden">
+    <div data-role="header" data-theme="b">
+        <!--<input type="button" id="btn_backToRecojDet" value="Atras"> -->
+        <a href="#pageRecojosDetalle" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
+        <h1></h1>
+    </div>
+    <div role="main" class="ui-content">
+        <fieldset   class="ui-grid-a">  
+            <legend class="marcado">nro Documento:</legend>          
+            <div id="div_txt_emiOrden" class="ui-block-a"><input type="text" placeholder="Emision" id="txt_emiOrden"></div>
+            <div id="div_txt_numOrden" class="ui-block-b"><input type="text" placeholder="Numero" id="txt_numOrden"></div>
+        </fieldset>  
+        <label id="lbl_msgAddOrden" class="alertHid"></label>
+        <fieldset   class="ui-grid-a">         
+            <div class="ui-block-a center" id="cont_plus">
+                <input class="botonera_orden" type="button" id="btn_addOrden" data-icon="plus" value="Agregar" data-theme="a">
+            </div>
+            <div class="ui-block-b center">
+                <input class="botonera_orden" type="button" id="btn_delOrden" data-icon="minus"  value="Quitar" data-theme="a">
+            </div>
+        </fieldset> 
+
+            <fieldset data-role="controlgroup" id="ordenesListChk">
+              <legend class="marcado">O/S a crear para este recojo:</legend>
+               <!--<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" /><label for="checkbox-2">I agree</label>-->
+            </fieldset>
+        <!--<ul data-role="listview" data-inset="true"  id="ordenesLista" class="ui-alt-icon">
+        </ul>-->
+        <div id="div_btnAceptaConfirmar">
+            <input type="button" data-theme="b" data-icon="check" value="Aceptar" id='btn_aceptaConfirmar'/>
+        </div>
+    </div>
+
+</div>
+
 
 
         <script type="text/javascript" src="cordova.js"></script>
@@ -153,12 +192,16 @@
     </body>
 </html>
 
-------------------------
+
+------------------------------------
 
 
 
  var obj_listado;
  var obj_motivos;
+ var usuario_global;
+ var password_global;
+ var mask;
 function linkrecojo(param){
 
   $.mobile.changePage( "#pageRecojosDetalle", { transition: "slide", changeHash: false });
@@ -188,8 +231,9 @@ function linkrecojo(param){
       $("#dirrec_det").html(obj.dir_cliente);
       $("#pesorec_det").html(obj.peso_envio);
       $("#glosa_det").html(obj.glosa);
-      $("#estado_envio_det").html(obj.estado_envio);
-      $("#estado_recojo_det").html(obj.hora_recojo);
+      //$("#estado_envio_det").html(obj.estado_envio);
+      $("#estado_recojo_det").html(obj.estado_recojo);
+      $("#_horarec_det").html(obj.hora_recojo);
       $("#horafin_det").html(obj.hora_recojo_fin);
     }
   });
@@ -203,38 +247,43 @@ function linkrecojo(param){
 
 $(document).ready(function(){
  
-	$( "#btnLogin" ).click(function() {
-  	  $("#lbl_msgLogin").html('');
-      $.mobile.loading( 'show', {
+    $( "#btnLogin" ).click(function() {
+      $("#lbl_msgLogin").html('');
+      mask=$.mobile.loading( 'show', {
       text: 'Validando',
       textVisible: true,
-      theme: 'b',
-      html: ""
+      theme: 'b'
     });
     var username=$("#txt_username").val();
-	  var password=$("#txt_password").val();
-	  loginValidar(username, password);
-	});
-	$("#btn_opcionReco").click(function (){	
+      var password=$("#txt_password").val();
+      loginValidar(username, password);
+    });
+    $("#btn_opcionReco").click(function (){ 
         $.mobile.changePage( "#pageRecojosMain", { transition: "slide", changeHash: false });
-	})
-	$("#btn_logOff").click(function (){		
-        /*destruimos las credenciales*/
-        $.mobile.changePage( "#pageLogin", { transition: "slidedown", changeHash: false });
-	})
-	$("#btn_backToMenuMain").click(function (){		
+    })
+    $("#btn_logOut").click(function (){       
+      obj_listado='';
+      obj_motivos='';
+      usuario_global='';
+      password_global='';
+      $.mobile.changePage( "#pageLogin", { transition: "slidedown", changeHash: false });
+    })
+    $("#btn_backToMenuMain").click(function (){     
         /*destruimos las credenciales*/
         $.mobile.changePage( "#pageMenuPrincipal", { transition: "slidedown", changeHash: false });
-	})
-	$("#btn_backToRecojosMain").click(function (){	
+    })
+    $("#btn_backToRecojosMain").click(function (){  
         $.mobile.changePage( "#pageRecojosMain", { transition: "slidedown", changeHash: false });
 
-	})
-	$("#btn_confirmaRec").click(function (){		
-	alert('cambia estado db')
+    })
+    $("#btn_confirmaRec").click(function (){
+    $.mobile.changePage( "#pageIngresarOrden", { transition: "slidedown", changeHash: false });
+  })
+  $("#btn_aceptaConfirmar").click(function (){      
+    alert('cambia estado db')
     $.mobile.changePage( "#pageRecojosMain", { transition: "slidedown", changeHash: false });
-	})
-	$("#btn_motivaRec").click(function (){    
+    })
+    $("#btn_motivaRec").click(function (){    
     $.mobile.changePage( "#pageMotivar", { transition: "slide", changeHash: false });    
       $("#lbl_msgMotivar").html(''); 
   })
@@ -243,11 +292,44 @@ $(document).ready(function(){
   })
   $("#btn_aceptaMotivar").click(function (){   
         motivarRecojo();
+  })  
+
+  $("#btn_addOrden").click(function (){ 
+       var msg="Ingrese la emision y el Numero";
+       var txt_emision=trim($("#txt_emiOrden").val());
+       var txt_numero=trim($("#txt_numOrden").val());
+
+       $("#lbl_msgAddOrden").val('')
+
+       if(txt_emision.length=='' || txt_numero.length==''){
+         $("#lbl_msgAddOrden").html(msg)
+         return false;
+       }else{
+         $("#ordenesListChk").append(
+          '<label><input type="checkbox" class="chk_orden" name="checkbox-1" id="checkbox-1" />'+txt_emision+' - '+txt_numero+'</label>');
+       }
+       //$("#ordenesLista").listview('refresh');
+       $("#txt_emiOrden").val('');
+       $("#txt_numOrden").val('');
+       $(".chk_orden").checkboxradio();
+       $(".chk_orden").checkboxradio("refresh");
+       $(".chk_orden").attr('checked',false).checkboxradio("refresh");
+       $("#txt_emiOrden").focus();
   })
 
 
+  $("#btn_delOrden").click(function (){
+      $(".chk_orden").each(function(e){        
+        if($(this).prop('checked')==true){    
+          $(this).parent().remove();/*debemos eliminar al padre ya que el es el contenedor*/
+        }        
+      })
+      $("#txt_emiOrden").focus();
+  })
 
-
+      function CargaLista( ){
+    
+     }
 
 
 
@@ -273,97 +355,96 @@ $(document).ready(function(){
    }
 
 
-	 function loginValidar(username, password){
+     function loginValidar(username, password){
         if (username.length === 0 || password.length === 0) {
             $("#lbl_msgLogin").html('Por favor, ingrese su usuario y password');
+            /*mascara*/
+            mask.loader( "hide" );
             return false;
         }
-		$.ajax({
-		    url : 'http://www.olva.com.pe/eeduardo/serviceMovil.php',
-		    jsonp: "LoginCallback",
-		    dataType: "jsonp",
-		    data: {
-		       format: "json",
-	           username:username,
-	           password:password,
-	           funcion:'dLoginValidar'
-		    },
-		    success: function( result ) {
+        $.ajax({
+            url : 'http://www.olva.com.pe/eeduardo/serviceMovil.php',
+            jsonp: "LoginCallback",
+            dataType: "jsonp",
+            data: {
+               format: "json",
+               username:username,
+               password:password,
+               funcion:'dLoginValidar'
+            },
+            success: function( result ) {
           obj_listado=new Array();;
-		       var resultado=result[0].resultado;
+               var resultado=result[0].resultado;
                if(resultado==1){/*hacer un each y OBtener las filas de los recojos*/   
 
-  			   var recojosCant=result.length;    
-           $("#recojosLista").html('')
-  				jQuery.each( result, function( i, obj ) {
-           var ope_nombre=obj.ope_nombre ? obj.ope_nombre : null;
-           var ope_apellido=  obj.ope_apellido ? obj.ope_apellido : null;
-           var ope_codigo=obj.ope_codigo ? obj.ope_codigo : null;  
-           var ope_codacc=obj.ope_codacc ? obj.ope_codacc : null;  
-           var nro_recojo=obj.nro_recojo ? obj.nro_recojo : null;  
-           var ruc_dni=obj.ruc_dni ? obj.ruc_dni : null;  
-           var nom_cli=obj.nom_cli ? obj.nom_cli : null;  
-           var nro_cliente=obj.nro_cliente ? obj.nro_cliente : null;  
-           var dir_cliente=obj.dir_cliente ? obj.dir_cliente : null;  
-           var peso_envio=obj.peso_envio ? obj.peso_envio : null;  
-           var glosa=obj.glosa ? obj.glosa : null;  
-           var estado_envio=obj.estado_envio ? obj.estado_envio : null;  
-           var flg_collect=obj.flg_collect ? obj.flg_collect : null;  
-           var cod_ciudad=obj.cod_ciudad ? obj.cod_ciudad : null;  
-           var contacto=obj.contacto ? obj.contacto : null;  
-           var tipo_recojo=obj.tipo_recojo ? obj.tipo_recojo : null;  
-           var sector_recojo=obj.sector_recojo ? obj.sector_recojo : null;  
-           var referencia=obj.referencia ? obj.referencia : null;  
-           var hora_recojo=obj.hora_recojo ? obj.hora_recojo : null;  
-           var hora_recojo_fin=obj.hora_recojo_fin ? obj.hora_recojo_fin : null; 
-           var param=parseInt(nro_recojo);           
-            
-          // alert(ope_codigo+'-'+nro_recojo);
-            obj_listado[i]={'ope_nombre':ope_nombre, 
-                            'ope_apellido':ope_apellido,
-                            'ope_codigo':ope_codigo,
-                            'ope_codacc':ope_codacc,
-                            'nro_recojo':nro_recojo,
-                            'ruc_dni':ruc_dni, 
-                            'nom_cli':nom_cli, 
-                            'nro_cliente':nro_cliente, 
-                            'dir_cliente':dir_cliente,
-                            'peso_envio':peso_envio, 
-                            'glosa':glosa,
-                            'estado_envio':estado_envio,
-                            'flg_collect':flg_collect,
-                            'cod_ciudad':cod_ciudad,
-                            'contacto':contacto,
-                            'tipo_recojo':tipo_recojo,
-                            'sector_recojo':sector_recojo,
-                            'referencia':referencia,
-                            'hora_recojo':hora_recojo,
-                            'hora_recojo_fin':hora_recojo_fin}
-                           // alert(dir_cliente);
+                       var recojosCant=result.length;    
+                   $("#recojosLista").html('')
+                        jQuery.each( result, function( i, obj ) {
+                   var ope_nombre=obj.ope_nombre ? obj.ope_nombre : null;
+                   var ope_apellido=  obj.ope_apellido ? obj.ope_apellido : null;
+                   var ope_codigo=obj.ope_codigo ? obj.ope_codigo : null;  
+                   var ope_codacc=obj.ope_codacc ? obj.ope_codacc : null;  
+                   var nro_recojo=obj.nro_recojo ? obj.nro_recojo : null;  
+                   var ruc_dni=obj.ruc_dni ? obj.ruc_dni : null;  
+                   var nom_cli=obj.nom_cli ? obj.nom_cli : null;  
+                   var nro_cliente=obj.nro_cliente ? obj.nro_cliente : null;  
+                   var dir_cliente=obj.dir_cliente ? obj.dir_cliente : null;  
+                   var peso_envio=obj.peso_envio ? obj.peso_envio : null;  
+                   var glosa=obj.glosa ? obj.glosa : null;  
+                   var estado_envio=obj.estado_envio ? obj.estado_envio : null;  
+                   var estado_recojo=obj.estado_recojo ? obj.estado_recojo : null;  
+                   var flg_collect=obj.flg_collect ? obj.flg_collect : null;  
+                   var cod_ciudad=obj.cod_ciudad ? obj.cod_ciudad : null;  
+                   var contacto=obj.contacto ? obj.contacto : null;  
+                   var tipo_recojo=obj.tipo_recojo ? obj.tipo_recojo : null;  
+                   var sector_recojo=obj.sector_recojo ? obj.sector_recojo : null;  
+                   var referencia=obj.referencia ? obj.referencia : null;  
+                   var hora_recojo=obj.hora_recojo ? obj.hora_recojo : null;  
+                   var hora_recojo_fin=obj.hora_recojo_fin ? obj.hora_recojo_fin : null; 
+                   var param=parseInt(nro_recojo);           
+                    
+                  // alert(ope_codigo+'-'+nro_recojo);
+                    obj_listado[i]={'ope_nombre':ope_nombre, 
+                                    'ope_apellido':ope_apellido,
+                                    'ope_codigo':ope_codigo,
+                                    'ope_codacc':ope_codacc,
+                                    'nro_recojo':nro_recojo,
+                                    'ruc_dni':ruc_dni, 
+                                    'nom_cli':nom_cli, 
+                                    'nro_cliente':nro_cliente, 
+                                    'dir_cliente':dir_cliente,
+                                    'peso_envio':peso_envio, 
+                                    'glosa':glosa,
+                                    'estado_envio':estado_envio,
+                                    'estado_recojo':estado_recojo,
+                                    'flg_collect':flg_collect,
+                                    'cod_ciudad':cod_ciudad,
+                                    'contacto':contacto,
+                                    'tipo_recojo':tipo_recojo,
+                                    'sector_recojo':sector_recojo,
+                                    'referencia':referencia,
+                                    'hora_recojo':hora_recojo,
+                                    'hora_recojo_fin':hora_recojo_fin}
+                                   // alert(dir_cliente);
 
-           $("#recojosLista").append('<li><a href="#" onclick="linkrecojo('+param+');">'+nro_recojo+' - '+nom_cli+'</a></li>');  
-				});
-    
-
-
+                     $("#recojosLista").append('<li><a href="#" onclick="linkrecojo('+param+');">'+nro_recojo+' - '+nom_cli+'</a></li>');  
+                        });
                /*debo guardar los datos en la memoria del telefono junto con el listado del recojo y pasa al Menu Principal*/  
+               usuario_global=username;
+               password_global=password;
                $("#txt_username").val('');
                $("#txt_password").val('');
-               $("#total_pendientes").html('');
-               $("#total_recojos").html(recojosCant);
+               $("#total_pendientes").html(recojosCant);
+               //$("#total_recojos").html(recojosCant);
                cargaMotivos();
-               //$.mobile.changePage( "#pageRecojosMain", { transition: "slidefade", changeHash: false });                  
-
-
-               }else{  /*no se obtiene nada*/       	
+               //$.mobile.changePage( "#pageRecojosMain", { transition: "slidefade", changeHash: false }); 
+               }else{  /*no se obtiene nada*/           
                    $("#lbl_msgLogin").html('Por favor, ingrese las credenciales correctas');       
                }
-		    
+        }/*fin de success login*/
 
-        }
-
-		});
-	 }
+        });
+     }
 
    function cargaMotivos(){
 
@@ -404,14 +485,37 @@ $(document).ready(function(){
                }else{  /*no se obtiene nada*/         
                    //$("#lbl_msgLogin").html('Por favor, ingrese las credenciales correctas');       
                }
-        
+          
 
         }
 
     });
 
    }
+/*EVENTOS DE PAGINAS */
+
+$("#pageRecojosMain").on("pagebeforeshow", function( event ) {
+    $("#recojosLista").listview();
+    $("#recojosLista").listview('refresh');
+})
+$("#pageMotivar").on("pagebeforeshow", function( event ) {  
+    $(".chk_orden").checkboxradio();
+    $(".rbt_motivo").attr('checked',false).checkboxradio("refresh");
+})
+$("#pageIngresarOrden").on("pagebeforeshow", function( event ) {  
+    $(".chk_orden").attr('checked',true);
+      $(".chk_orden").each(function(e){        
+        if($(this).prop('checked')==true){    
+          $(this).parent().remove();/*debemos eliminar al padre ya que el es el contenedor*/
+        }        
+      })
+      $("#txt_emiOrden").focus();
+})
 
 
+/*if(trim(usuario_global)=='' || password_global=''){
+   //$.mobile.changePage( "#pageLogin" ); //evento setactivepage 
 
+}*/
 });
+
