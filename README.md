@@ -519,3 +519,317 @@ $("#pageIngresarOrden").on("pagebeforeshow", function( event ) {
 }*/
 });
 
+--------------------------------------------------------
+
+function trim(string)
+{
+    for(i=0; i<string.length; )
+    {
+        if(string.charAt(i)==" ")
+            {string=string.substring(i+1, string.length);}
+        else
+            {break;}
+    }
+    for(i=string.length-1; i>=0; i=string.length-1)
+    {
+        if(string.charAt(i)==" ")
+            {string=string.substring(0,i);}
+        else
+            {break;}
+    }
+    return string;
+}
+------------------------------------------
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+    }
+};
+
+-------------------
+
+body{
+	font-size: 16px;
+}
+.alertHid{
+	color:#752D2D;
+	font-weight: bold;
+}
+#lbl_operador{
+	font-weight: bold
+}
+#div_txt_emiOrden{
+	padding:0 1em;
+	width:35%;
+}
+#div_txt_numOrden{
+	width:50%;
+}
+#div_btnAceptaConfirmar{
+	width:70%;
+	margin: 3em auto;	
+}
+.center{
+	margin: 0 auto;	
+}
+.marcado{
+	font-weight: bold;
+}
+#motivos_opcion{
+	overflow: hidden;
+}
+#glosa_det{
+	font-size: 1em;
+}
+
+
+--------------------------
+
+
+
+
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="js/jQueryMobile/jquery.mobile-1.4.2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="js/jQueryMobile/jquery.mobile.theme-1.4.2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/estilos.css">
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jQueryMobile/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" src="js/funcionesGlobales.js"></script>
+        <script type="text/javascript" src="js/funcionesGenerales.js"></script>
+        <title>Operador Olva App</title>
+    </head>
+    <body>
+        <input type="hidden" id="hid_nrorecojo" value=""/>
+        <input type="hidden" id="hid_cod_operador"  value=""/>
+        <div class="app">
+            <h1>Olva App</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening"></p>
+                <p class="event received"></p>
+            </div>
+        </div>
+<div data-role="page" id="pageLogin">
+
+    <div data-role="header"  data-position="fixed"  data-theme="b" data-position="fixed">
+        <h1>Autenticacion</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <h4>Iniciar Sesion:</h4>
+        <form>
+            <label type="text" id="lbl_msgLogin" class="alertHid"></label>
+            <input type="text" placeholder="Username" id="txt_username">
+            <input type="password" placeholder="Password" id="txt_password">
+            <input type="button" data-theme="a" data-icon="home" id="btnLogin" value="Log In" >  
+        </form>
+    </div><!-- /content -->
+</div><!-- /page -->
+<div data-role="page" id="pageMenuPrincipal" data-theme="a">
+    <div data-role="header"  data-position="fixed" data-theme="b">
+         <label type="text" id="lbl_operador"></label>
+         <!--<input type="button" id="btn_logOff" value="Log Off">  -->
+        <a href="#" data-theme="b" data-direction="reverse" id="btn_logOut" data-icon="back">Log Out</a> 
+        <h1></h1>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">
+         <input type="button" id="btn_opcionDist" data-icon="grid" data-theme="a" value="Distribucion">  
+         <input type="button" id="btn_opcionReco" data-icon="grid" data-theme="c" value="Recojos">  
+
+    </div><!-- /content -->
+</div><!-- /page -->
+<!-- Start of second page -->
+<div data-role="page" id="pageRecojosMain">
+    <div data-role="header"  data-position="fixed" data-theme="b">
+        <!--<input type="button" id="btn_backToMenuMain" value="Atras">  -->
+        <a href="#pageMenuPrincipal" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
+        <h1></h1>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">        
+        <h4 class="alertHid">Recojos Pendientes:</h4>
+        <ul data-role="listview" data-inset="true"  id="recojosLista" class="ui-alt-icon"></ul>  
+
+
+        <div class="ui-grid-a ui-bar ui-bar-e" data-theme="b">
+            <div class="ui-block-a">
+                <strong class="alertHid">Total:</strong><strong class="alertHid" id="txt_total_pendientes"></strong>
+            </div>
+            <div class="ui-block-b">
+                <!--<div><strong>Total:</strong></div>
+                <div><strong id="total_recojos"></strong></div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageRecojosDetalle">
+    <div data-role="header" data-position="fixed" data-theme="b">
+        <!--<input type="button"  id="btn_backToRecojosMain" value="Atras"> -->
+        <a href="#pageRecojosMain" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
+        <h1></h1>
+    </div><!-- /header -->
+    <div role="main" class="ui-content" id='contentRecDet'>
+    <h1 class="alertHid"></h1><strong class="alertHid" id="txt_nro_recojo"></strong>
+    
+        <h4 id="collect_det" class="alertHid"></h4>
+    <ul data-role="listview"  data-inset="true" id="detalleLista" class="ui-alt-icon">
+        <li data-role="list-divider"><h4>Cliente:</h4></li>
+        <li id="nomcli_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Tipo:</h4></li>
+        <li id="tipocliente_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Ruc:</h4></li>
+        <li id="ruc_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Contacto:</h4></li>
+        <li id="contacto_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Direccion:</h4></li>
+        <li id="dirrec_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Peso:</h4></li>
+        <li id="pesorec_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Glosa:</h4></li>
+        <li id="glosa_det" style="white-space:normal; font-size:small;"></li>
+        <!--<li data-role="list-divider"><h4>Estado Envio:</h4></li>
+        <li ><h4 id="estado_envio_det"></h4></li>-->
+        <li data-role="list-divider"><h4>Estado Recojo:</h4></li>
+        <li id="estado_recojo_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Hora Recojo:</h4></li>
+        <li id="_horarec_det" style="white-space:normal; font-size:small;"></li>
+        <li data-role="list-divider"><h4>Hora Recojo Final:</h4></li>
+        <li id="horafin_det" style="white-space:normal; font-size:small;"></li>
+    </ul> 
+     <fieldset class="ui-grid-a">
+                <div class="ui-block-a">
+                    <input type="button" id="btn_confirmaRec" data-mini="true" data-icon="check" data-theme="b" value="Confirmar">
+                </div>
+                <div class="ui-block-b">
+                    <input type="button" id="btn_motivaRec" data-mini="true" data-icon="delete" data-theme="b" value="Motivar"> 
+                </div>
+    </fieldset>
+
+</div>
+</div>
+<div data-role="page" id="pageMotivar">
+    <div data-role="header"  data-position="fixed" data-theme="b">
+        <!--<input type="button" id="btn_backToRecojDet" value="Atras"> -->
+        <a href="#pageRecojosDetalle" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
+        <h1></h1>
+    </div>
+    <div role="main" class="ui-content">
+        <h4 class="alertHid">Elija un motivo:</h4>
+        <fieldset data-role="controlgroup" id='motivos_opcion'></fieldset>      
+        <div id="lbl_msgMotivar" class="alertHid"></div>            
+        <input type="button" data-theme="b" data-icon="check" value="Aceptar" id='btn_aceptaMotivar'/>  
+    </div>
+
+</div>
+
+<div data-role="page" id="pageIngresarOrden">
+    <div data-role="header"  data-position="fixed" data-theme="b">
+        <!--<input type="button" id="btn_backToRecojDet" value="Atras"> -->
+        <a href="#pageRecojosDetalle" data-theme="b" data-direction="reverse" data-icon="back">Atras</a> 
+        <h1></h1>
+    </div>
+    <div role="main" class="ui-content">
+        <h5 class="alertHid">Nro Documento:</h5>   
+        <fieldset   class="ui-grid-a">         
+            <div id="div_txt_emiOrden" class="ui-block-a"><input type="text" placeholder="Emision" id="txt_emiOrden"></div>
+            <div id="div_txt_numOrden" class="ui-block-b"><input type="text" placeholder="Numero" id="txt_numOrden"></div>
+        </fieldset>  
+        <label id="lbl_msgAddOrden" class="alertHid"></label>
+        <fieldset   class="ui-grid-a">         
+            <div class="ui-block-a center" id="cont_plus">
+                <input class="botonera_orden" type="button" id="btn_addOrden" data-icon="plus" value="Agregar" data-theme="a">
+            </div>
+            <div class="ui-block-b center">
+                <input class="botonera_orden" type="button" id="btn_delOrden" data-icon="minus"  value="Quitar" data-theme="a">
+            </div>
+        </fieldset> 
+        <h5 class="alertHid">Documentos a anexar para este recojo:</h5>
+        <fieldset data-role="controlgroup" id="ordenesListChk">
+           <!--<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" /><label for="checkbox-2">I agree</label>-->
+        </fieldset>
+        <!--<ul data-role="listview" data-inset="true"  id="ordenesLista" class="ui-alt-icon">
+        </ul>-->
+        <div id="div_btnAceptaConfirmar">
+            <input type="button" data-theme="b" data-icon="check" value="Aceptar" id='btn_aceptaConfirmar'/>
+        </div>
+    </div>
+
+</div>
+
+
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();   
+        </script>
+    </body>
+</html>
